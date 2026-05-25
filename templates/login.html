@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | NOIR BREW</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+
+<body class="bg-background text-foreground">
+
+    <div class="min-h-screen flex items-center justify-center px-6">
+        <div class="w-full max-w-md">
+
+            <!-- Logo -->
+            <div class="text-center mb-8">
+                <a href="/" class="text-3xl font-serif font-bold text-foreground">
+                    NOIR<span class="text-primary">BREW</span>
+                </a>
+                <p class="text-muted-foreground mt-2">Welcome back</p>
+            </div>
+
+            <!-- Card -->
+            <div class="bg-card border border-border rounded-2xl p-8">
+                <h2 class="text-2xl font-serif font-bold text-foreground mb-6">Sign In</h2>
+
+                <!-- Error Message -->
+                <div id="error-msg" class="hidden mb-4 p-3 rounded-lg text-sm"
+                    style="background:color-mix(in oklch, var(--destructive) 15%, transparent);color:var(--destructive);">
+                </div>
+
+                <!-- Form -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-foreground mb-2">Email</label>
+                        <input id="email" type="email" placeholder="hello@example.com"
+                            class="w-full bg-background border border-border text-foreground placeholder:text-muted-foreground h-12 px-4 rounded-lg outline-none transition-colors focus:border-primary" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-foreground mb-2">Password</label>
+                        <input id="password" type="password" placeholder="••••••••"
+                            class="w-full bg-background border border-border text-foreground placeholder:text-muted-foreground h-12 px-4 rounded-lg outline-none transition-colors focus:border-primary" />
+                    </div>
+                    <button onclick="handleLogin()" class="w-full btn-primary-lg h-12 flex items-center justify-center">
+                        <span id="btn-text">Sign In</span>
+                    </button>
+                </div>
+
+                <p class="text-center text-sm text-muted-foreground mt-6">
+                    Don't have an account?
+                    <a href="/register" class="text-primary hover:underline font-medium">Register</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function handleLogin() {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+            const btnText = document.getElementById('btn-text');
+
+            if (!email || !password) {
+                errorMsg.textContent = 'Please fill in all fields';
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            btnText.textContent = 'Signing in...';
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    window.location.href = '/';
+                } else {
+                    errorMsg.textContent = data.detail || 'Login failed';
+                    errorMsg.classList.remove('hidden');
+                    btnText.textContent = 'Sign In';
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Something went wrong. Try again.';
+                errorMsg.classList.remove('hidden');
+                btnText.textContent = 'Sign In';
+            }
+        }
+
+        // Enter key support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+    </script>
+</body>
+
+</html>

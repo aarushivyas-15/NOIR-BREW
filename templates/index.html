@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NOIR BREW | Premium Luxury Coffee</title>
+    <title>NOIRBREW | Premium Luxury Coffee</title>
     <meta name="description"
         content="Experience the art of exceptional coffee. Hand-selected beans, expertly roasted for an unparalleled taste experience." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,9 +36,19 @@
                 <h2 class="text-xl font-serif font-semibold text-foreground">Your Cart</h2>
                 <span id="cart-badge" class="bg-primary/20 text-primary text-sm px-2 py-0.5 rounded-full">0</span>
             </div>
-            <button onclick="closeCart()" class="p-2 hover:bg-muted rounded-full transition-colors">
+            <!-- <button onclick="closeCart()" class="p-2 hover:bg-muted rounded-full transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="var(--foreground)" stroke-width="2" viewBox="0 0 24 24">
 
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button> -->
+            <button onclick="closeCart()"
+                style="padding:0.5rem;border-radius:9999px;background:transparent;border:none;cursor:pointer;"
+                onmouseover="this.querySelector('svg').style.stroke='var(--primary)'"
+                onmouseout="this.querySelector('svg').style.stroke='var(--muted-foreground)'">
+                <svg style="width:1.25rem;height:1.25rem;display:block;stroke:var(--muted-foreground);transition:stroke 300ms;"
+                    fill="none" stroke-width="2" viewBox="0 0 24 24">
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
@@ -95,9 +105,50 @@
                 <a href="#testimonials" class="nav-link">Testimonials</a>
                 <!-- <a href="../templates/shop.html" class="btn-outline-nav">Shop Now</a> -->
                 <a href="/shop" class="btn-outline-nav">Shop Now</a>
-                <button onclick="openCart()" class="relative p-2 hover:bg-muted rounded-full transition-colors">
 
-                    <svg class="w-5 h-5" fill="none" stroke="#1a1a1a" stroke-width="2" viewBox="0 0 24 24">
+                {% if user %}
+                <!-- User logged in -->
+                <a href="/profile"
+                    style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;border-radius:9999px;background:var(--primary);color:var(--primary-foreground);font-size:0.875rem;font-weight:500;text-decoration:none;">
+                    <svg style="width:1rem;height:1rem;" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    {{ user.name.split()[0] }}
+                </a>
+                <!-- <button onclick="handleLogout()"
+                    style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;border-radius:9999px;border:1px solid var(--border);color:var(--muted-foreground);font-size:0.875rem;font-weight:500;background:none;cursor:pointer;"
+                    onmouseover="this.style.color='var(--destructive)';this.style.borderColor='var(--destructive)'"
+                    onmouseout="this.style.color='var(--muted-foreground)';this.style.borderColor='var(--border)'">
+                    <svg style="width:1rem;height:1rem;" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Logout
+                </button> -->
+                {% else %}
+                <!-- Not logged in -->
+                <a href="/login"
+                    style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;border-radius:9999px;border:1px solid var(--border);color:var(--foreground);font-size:0.875rem;font-weight:500;text-decoration:none;">
+                    <svg style="width:1rem;height:1rem;" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" />
+                        <polyline points="10 17 15 12 10 7" />
+                        <line x1="15" y1="12" x2="3" y2="12" />
+                    </svg>
+                    Login
+                </a>
+                {% endif %}
+
+                <button onclick="openCart()" class="relative transition-colors"
+                    style="padding:0.5rem;border-radius:9999px;background:transparent;border:none;cursor:pointer;"
+                    onmouseover="this.querySelector('svg').style.stroke='var(--primary)'"
+                    onmouseout="this.querySelector('svg').style.stroke='white'">
+                    <svg style="width:1.25rem;height:1.25rem;display:block;stroke:white;transition:stroke 300ms;"
+                        fill="none" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
                         <line x1="3" y1="6" x2="21" y2="6" />
                         <path d="M16 10a4 4 0 01-8 0" />
