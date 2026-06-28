@@ -376,10 +376,9 @@ button {
 .max-w-5xl {
   max-width: 64rem;
 }
-.max-w-[200px] {
+.max-w-\[200px\] {
   max-width: 200px;
 }
-
 /* Text */
 .font-serif {
   font-family: "Playfair Display", Georgia, serif;
@@ -429,10 +428,11 @@ button {
 .tracking-wider {
   letter-spacing: 0.05em;
 }
-.tracking-[0\.2em] {
+.tracking-\[0\.2em\] {
   letter-spacing: 0.2em;
 }
-.tracking-[0\.3em] {
+
+.tracking-\[0\.3em\] {
   letter-spacing: 0.3em;
 }
 .uppercase {
