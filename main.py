@@ -25,6 +25,9 @@ from auth import (
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="NOIR BREW")
+@app.get("/healthz")
+def health():
+    return {"status": "ok"}
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
